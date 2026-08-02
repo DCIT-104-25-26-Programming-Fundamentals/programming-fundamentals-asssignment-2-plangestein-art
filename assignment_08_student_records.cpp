@@ -83,3 +83,141 @@
 #include <iomanip>
 using namespace std;
 
+// struct for student record
+struct Student {
+    string name;
+    int id;
+    vector<double> scores;
+};
+
+// 1. Add a Student function
+void addStudent(vector<Student>& students) {
+    Student s;
+    cin.ignore(); // clear input buffer
+    
+    cout << "Student name: ";
+    getline(cin, s.name);
+    
+    cout << "Student ID: ";
+    cin >> s.id;
+    
+    int numScores;
+    cout << "How many scores? ";
+    cin >> numScores;
+    
+    for (int i = 0; i < numScores; i++) {
+        double score;
+        cout << "Enter score " << (i + 1) << ": ";
+        cin >> score;
+        s.scores.push_back(score);
+    }
+    
+    students.push_back(s);
+    cout << "Student \"" << s.name << "\" added successfully." << endl;
+}
+
+// 2. Display All Students function
+void displayStudents(const vector<Student>& students) {
+    if (students.empty()) {
+        cout << "No students have been added yet." << endl;
+        return;
+    }
+    
+    cout << "\n----------------------------------------" << endl;
+    cout << "          ALL STUDENT RECORDS           " << endl;
+    cout << "----------------------------------------" << endl;
+    
+    for (size_t i = 0; i < students.size(); i++) {
+        cout << "Name: " << students[i].name << endl;
+        cout << "ID: " << students[i].id << endl;
+        cout << "Scores: ";
+        
+        if (students[i].scores.empty()) {
+            cout << "None" << endl;
+            cout << "Average: N/A" << endl;
+        } else {
+            double sum = 0;
+            for (size_t j = 0; j < students[i].scores.size(); j++) {
+                cout << students[i].scores[j] << " ";
+                sum += students[i].scores[j];
+            }
+            double avg = sum / students[i].scores.size();
+            cout << "\nAverage: " << fixed << setprecision(2) << avg << endl;
+        }
+        cout << "----------------------------------------" << endl;
+    }
+}
+
+// 3. Calculate Average Score for a Specific Student function
+void calculateAverage(const vector<Student>& students) {
+    if (students.empty()) {
+        cout << "No students found in the system." << endl;
+        return;
+    }
+    
+    int searchId;
+    cout << "Enter student ID: ";
+    cin >> searchId;
+    
+    bool found = false;
+    for (size_t i = 0; i < students.size(); i++) {
+        if (students[i].id == searchId) {
+            found = true;
+            
+            if (students[i].scores.empty()) {
+                cout << students[i].name << " has no scores recorded." << endl;
+                return;
+            }
+            
+            double sum = 0;
+            for (size_t j = 0; j < students[i].scores.size(); j++) {
+                sum += students[i].scores[j];
+            }
+            
+            double avg = sum / students[i].scores.size();
+            cout << students[i].name << "'s average score: " << fixed << setprecision(2) << avg << endl;
+            break;
+        }
+    }
+    
+    if (!found) {
+        cout << "Error: Student ID not found." << endl;
+    }
+}
+
+int main() {
+    vector<Student> students;
+    int choice;
+    
+    do {
+        cout << "\n================================" << endl;
+        cout << "     STUDENT RECORD SYSTEM MENU " << endl;
+        cout << "================================" << endl;
+        cout << "1. Add student" << endl;
+        cout << "2. Display all students" << endl;
+        cout << "3. Calculate average score" << endl;
+        cout << "4. Quit" << endl;
+        cout << "Enter your choice (1-4): ";
+        cin >> choice;
+        
+        switch (choice) {
+            case 1:
+                addStudent(students);
+                break;
+            case 2:
+                displayStudents(students);
+                break;
+            case 3:
+                calculateAverage(students);
+                break;
+            case 4:
+                cout << "Goodbye!" << endl;
+                break;
+            default:
+                cout << "Invalid choice! Please enter a number between 1 and 4." << endl;
+        }
+    } while (choice != 4);
+
+    return 0;
+}
+

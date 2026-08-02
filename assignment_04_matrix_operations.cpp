@@ -64,4 +64,144 @@
 #include <iomanip>
 #include <string>
 using namespace std;
+// PART A — Transpose a Matrix
+void transposeMatrix() {
+    int rows, cols;
+    cout << "Enter number of rows: ";
+    cin >> rows;
+    cout << "Enter number of columns: ";
+    cin >> cols;
+    
+    int matrix[10][10];
+    
+    // Read matrix elements
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cout << "Enter element [" << i << "][" << j << "]: ";
+            cin >> matrix[i][j];
+        }
+    }
+    
+    cout << "\nOriginal Matrix:" << endl;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cout << setw(4) << matrix[i][j];
+        }
+        cout << endl;
+    }
+    
+    cout << "\nTransposed Matrix:" << endl;
+    for (int j = 0; j < cols; j++) {
+        for (int i = 0; i < rows; i++) {
+            cout << setw(4) << matrix[i][j];
+        }
+        cout << endl;
+    }
+}
 
+// PART B — Add Two Matrices
+void addMatrices() {
+    int rows, cols;
+    cout << "Enter number of rows: ";
+    cin >> rows;
+    cout << "Enter number of columns: ";
+    cin >> cols;
+    
+    int matA[10][10], matB[10][10], result[10][10];
+    
+    cout << "\nEnter elements for Matrix A:" << endl;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cout << "Enter element [" << i << "][" << j << "]: ";
+            cin >> matA[i][j];
+        }
+    }
+    
+    cout << "\nEnter elements for Matrix B:" << endl;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cout << "Enter element [" << i << "][" << j << "]: ";
+            cin >> matB[i][j];
+        }
+    }
+    
+    // Compute sum
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result[i][j] = matA[i][j] + matB[i][j];
+        }
+    }
+    
+    cout << "\nResult of Matrix Addition:" << endl;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cout << setw(4) << result[i][j];
+        }
+        cout << endl;
+    }
+}
+
+// PART C — Multiply Two Matrices
+void multiplyMatrices() {
+    int r1, c1, r2, c2;
+    
+    cout << "Enter rows and columns for Matrix A: ";
+    cin >> r1 >> c1;
+    
+    cout << "Enter rows and columns for Matrix B: ";
+    cin >> r2 >> c2;
+    
+    if (c1 != r2) {
+        cout << "Error: Columns of A must match rows of B for multiplication!" << endl;
+        return;
+    }
+    
+    int matA[10][10], matB[10][10], result[10][10] = {0};
+    
+    cout << "\nEnter elements for Matrix A:" << endl;
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c1; j++) {
+            cout << "Enter element [" << i << "][" << j << "]: ";
+            cin >> matA[i][j];
+        }
+    }
+    
+    cout << "\nEnter elements for Matrix B:" << endl;
+    for (int i = 0; i < r2; i++) {
+        for (int j = 0; j < c2; j++) {
+            cout << "Enter element [" << i << "][" << j << "]: ";
+            cin >> matB[i][j];
+        }
+    }
+    
+    // Compute multiplication
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c2; j++) {
+            for (int k = 0; k < c1; k++) {
+                result[i][j] += matA[i][k] * matB[k][j];
+            }
+        }
+    }
+    
+    cout << "\nResult of Matrix Multiplication (A x B):" << endl;
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c2; j++) {
+            cout << setw(6) << result[i][j];
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    // You can test each function here individually as required by the assignment
+    cout << "=== PART A: Transpose ===" << endl;
+    transposeMatrix();
+    
+    cout << "\n=== PART B: Addition ===" << endl;
+    addMatrices();
+    
+    cout << "\n=== PART C: Multiplication ===" << endl;
+    multiplyMatrices();
+
+    return 0;
+}

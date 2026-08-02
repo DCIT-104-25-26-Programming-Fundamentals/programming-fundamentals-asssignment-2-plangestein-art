@@ -57,3 +57,56 @@
 #include <iostream>
 using namespace std;
 
+// PART A — Single Table
+void printSingleTable() {
+    int num;
+    cout << "Enter a number: ";
+    cin >> num;
+    
+    cout << "Multiplication Table for " << num << ":" << endl;
+    
+    for (int i = 1; i <= 12; i++) {
+        cout << num << "  x  " << i << "  =  " << (num * i) << endl;
+    }
+}
+
+// PART B — Bonus: Tables from 1 to N
+void printRangeTables() {
+    int n;
+    cout << "\nEnter a number N: ";
+    cin >> n;
+    
+    // check if N is positive
+    if (n <= 0) {
+        cout << "Error: N must be a positive integer!" << endl;
+        return;
+    }
+    
+    cout << endl;
+    
+    for (int i = 1; i <= n; i++) {
+        cout << "Multiplication Table for " << i << ":" << endl;
+        
+        for (int j = 1; j <= 12; j++) {
+            cout << i << "  x  " << j << "  =  " << (i * j) << endl;
+        }
+        
+        // put separator line between tables, but not after the last one
+        if (i < n) {
+            cout << "---------------------------" << endl;
+        }
+    }
+}
+
+int main() {
+    // calling part a
+    printSingleTable();
+    
+    cout << endl;
+    
+    // calling part b
+    printRangeTables();
+
+    return 0;
+}
+
